@@ -1,40 +1,35 @@
-import altair as alt
-import numpy as np
-import pandas as pd
 import streamlit as st
+from pytube import YouTube
+import os
 
-"""
-# Welcome to Streamlit!
+def download_video(url):
+    try:
+        yt = YouTube(url)
+        stream = yt.streams.get_highest_resolution()
+        stream.download(output_path="downloads")
+        return f"downloads/{stream.default_filename}", yt.title
+    except Exception as e:
+        return None, f"Error: {e}"
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# Streamlit UI
+st.title("YouTube Video Downloader")
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+url = st.text_input("Enter YouTube Video URL:")
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+if st.button("Download"):
+    if url:
+        file_path, message = download_video(url)
+        if file_path:
+            with open(file_path, "rb") as file:
+                btn = st.download_button(
+                    label="Download Video", 
+                    data=file,
+                    file_name=os.path.basename(file_path),
+                    mime="video/mp4"
+                )
+            st.success(f"Downloaded: {message}")
+        else:
+            st.error(message)
+    else:
+        st.error("Please provide a URL.")
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
-
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
-
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
-
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
