@@ -1,8 +1,7 @@
 # 🌀 Spiral template
 
-A simple Streamlit app that draws a spiral. 
+A simple Streamlit app that lets you download youtube videos
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://basic-template.streamlit.app/)
 
 ### How to run it on your own machine
 
