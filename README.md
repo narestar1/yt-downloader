@@ -1,4 +1,4 @@
-# 🌀 Spiral template
+# 🌀 Youtube Downloader by Naresh 
 
 A simple Streamlit app that lets you download youtube videos
 
