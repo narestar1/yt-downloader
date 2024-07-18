@@ -2,6 +2,7 @@ import streamlit as st
 from pytube import YouTube
 import os
 import logging
+import sys
 
 # Configure the logging
 logging.basicConfig(
