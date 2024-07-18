@@ -8,8 +8,7 @@ logging.basicConfig(
     level=logging.DEBUG,  # Set the logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("streamlit_app.log"),  # Write logs to a file
-        logging.StreamHandler()  # Optionally, also print to console
+        logging.StreamHandler(sys.stdout)  # Ensure logs are sent to stdout
     ]
 )
 
