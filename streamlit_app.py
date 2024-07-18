@@ -1,6 +1,7 @@
 import streamlit as st
 from pytube import YouTube
 import os
+import logging
 
 
 def download_video(url):
@@ -22,7 +23,7 @@ def delete_file(file_path):
 
 
 # Streamlit UI
-st.title("YouTube Video Downloader")
+st.title("YouTube Video Downloader by Naresh")
 
 url = st.text_input("Enter YouTube Video URL:")
 
@@ -40,6 +41,7 @@ if st.button("Download"):
                     args=(file_path,),
                 )
             st.success(f"Downloaded: {message}")
+            logging.info(url)
         else:
             st.error(message)
     else:
