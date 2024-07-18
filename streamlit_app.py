@@ -3,6 +3,18 @@ from pytube import YouTube
 import os
 import logging
 
+# Configure the logging
+logging.basicConfig(
+    level=logging.DEBUG,  # Set the logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("streamlit_app.log"),  # Write logs to a file
+        logging.StreamHandler()  # Optionally, also print to console
+    ]
+)
+
+# Create a logger object
+logger = logging.getLogger(__name__)
 
 def download_video(url):
     try:
@@ -24,6 +36,7 @@ def delete_file(file_path):
 
 # Streamlit UI
 st.title("YouTube Downloader Naresh")
+logger.info("Some body logged in")
 
 url = st.text_input("Enter YouTube Video URL:")
 
@@ -41,9 +54,9 @@ if st.button("Download"):
                     args=(file_path,),
                 )
             st.success(f"Downloaded: {message}")
-            logging.info(url)
+            logger.info(url)
         else:
             st.error(message)
-            logging.info(url)
+            logger.info(url)
     else:
         st.error("Please provide a URL.")
