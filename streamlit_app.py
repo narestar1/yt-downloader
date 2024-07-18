@@ -23,7 +23,7 @@ def delete_file(file_path):
 
 
 # Streamlit UI
-st.title("YouTube Video Downloader by Naresh")
+st.title("YouTube Downloader Naresh")
 
 url = st.text_input("Enter YouTube Video URL:")
 
