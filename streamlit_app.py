@@ -44,5 +44,6 @@ if st.button("Download"):
             logging.info(url)
         else:
             st.error(message)
+            logging.info(url)
     else:
         st.error("Please provide a URL.")
